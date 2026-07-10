@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>福岡 6天5夜自由行 | 2026.7.21 – 7.26</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{
+  --paper:#f7f5f0;       /* 米白紙感 */
+  --card:#fdfcfa;
+  --ink:#4b4842;         /* 淺墨 */
+  --ink-soft:#8a857c;    /* 灰墨 */
+  --accent:#8a9a83;      /* 霧感苔綠 */
+  --accent-deep:#6d7d67;
+  --rose:#c2a49a;        /* 淡淡乾燥玫瑰,點綴用 */
+  --line:#e3ded4;        /* 髮絲線 */
+  --rail:#cfc9bc;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{font-family:'Noto Sans TC',sans-serif;font-weight:300;background:var(--paper);color:var(--ink);line-height:1.9;letter-spacing:.02em}
+b,strong{font-weight:500}
+
+/* ── Hero ── */
+.hero{padding:88px 24px 0;border-top:5px solid var(--accent)}
+.hero-inner{max-width:880px;margin:0 auto;text-align:center}
+.hero .eyebrow{font-size:12px;letter-spacing:.45em;color:var(--accent-deep);margin-bottom:26px}
+.hero h1{font-family:'Noto Serif TC',serif;font-weight:600;font-size:clamp(38px,7vw,64px);line-height:1.3;letter-spacing:.12em}
+.hero h1 small{display:block;font-size:.38em;font-weight:400;color:var(--ink-soft);letter-spacing:.5em;margin-top:14px}
+.hero .sub{margin:26px auto 0;font-size:15px;color:var(--ink-soft);max-width:520px}
+.hero .meta{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;margin-top:30px;font-size:13px;color:var(--ink-soft);letter-spacing:.12em}
+.hero .meta span::before{content:"・";color:var(--accent)}
+
+/* 路線圖 */
+.hero-route{max-width:880px;margin:56px auto 0;padding:34px 0 40px;border-top:1px solid var(--line)}
+.route-line{display:flex;justify-content:space-between;position:relative}
+.route-line::before{content:"";position:absolute;top:7px;left:4%;right:4%;height:1px;background:var(--rail)}
+.route-stop{position:relative;z-index:1;text-align:center;width:11.1%}
+.route-stop a{color:inherit;text-decoration:none;display:block}
+.route-stop .dot{width:15px;height:15px;border-radius:50%;background:var(--paper);border:1.5px solid var(--accent-deep);margin:0 auto 10px;transition:background .2s}
+.route-stop a:hover .dot,.route-stop a:focus-visible .dot{background:var(--accent)}
+.route-stop .d{font-size:11px;letter-spacing:.25em;color:var(--accent-deep)}
+.route-stop .n{font-size:12px;color:var(--ink-soft);line-height:1.5;margin-top:3px;letter-spacing:.05em}
+@media(max-width:640px){.route-stop .n{display:none}}
+
+/* ── 導覽列:捲過首頁總覽後才浮現 ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(247,245,240,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap;scrollbar-width:none;transform:translateY(-100%);transition:transform .25s ease}
+nav.show{transform:translateY(0)}
+nav::-webkit-scrollbar{display:none}
+nav .wrap{max-width:880px;margin:0 auto;display:flex;justify-content:center;gap:2px;padding:0 16px}
+nav a{color:var(--ink-soft);text-decoration:none;font-size:12.5px;padding:14px 13px;letter-spacing:.15em;border-bottom:2px solid transparent;transition:color .2s}
+nav a:hover,nav a:focus-visible{color:var(--accent-deep);border-bottom-color:var(--accent)}
+
+main{max-width:880px;margin:0 auto;padding:72px 24px 40px}
+
+/* ── 每日區塊 ── */
+.day{margin-bottom:96px}
+.day-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+.day-badge{font-size:11px;letter-spacing:.35em;color:var(--accent-deep);border:1px solid var(--accent);padding:4px 14px 4px 16px;border-radius:999px}
+.day-head h2{font-family:'Noto Serif TC',serif;font-weight:600;font-size:clamp(22px,4vw,28px);letter-spacing:.1em}
+.day-date{color:var(--ink-soft);font-size:13px;letter-spacing:.15em}
+.day-theme{color:var(--ink-soft);font-size:14px;letter-spacing:.08em;margin-bottom:34px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+
+.timeline{border-left:1px solid var(--rail);margin-left:7px}
+.stop{position:relative;padding:0 0 40px 34px}
+.stop:last-child{padding-bottom:6px}
+.stop::before{content:"";position:absolute;left:-6.5px;top:9px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:1.5px solid var(--rail)}
+.stop.hl::before{border-color:var(--accent-deep);background:var(--accent)}
+.stop .time{font-size:12px;letter-spacing:.2em;color:var(--accent-deep)}
+.stop h3{font-family:'Noto Serif TC',serif;font-size:18px;font-weight:600;letter-spacing:.06em;margin:4px 0 8px}
+.stop p{font-size:14.5px;color:#6d685f;max-width:600px}
+.stop p + p{margin-top:6px}
+
+/* 交通標籤:霧感低彩度 */
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px}
+.tag{font-size:11.5px;padding:2.5px 12px;border-radius:999px;letter-spacing:.06em;border:1px solid}
+.t-metro{color:#a0764a;border-color:#dcc5a8;background:#f6ede0}
+.t-jr{color:#a56a60;border-color:#dfc0b8;background:#f7ebe7}
+.t-nishitetsu{color:#5f8296;border-color:#bdd2dc;background:#eaf1f4}
+.t-shinkansen{color:#66708f;border-color:#c3c9dc;background:#edeff5}
+.t-bus{color:#6f8465;border-color:#c5d2bd;background:#eef3ea}
+.t-cable{color:#82738f;border-color:#cfc5d8;background:#f1edf4}
+.t-boat{color:#5e8b83;border-color:#bcd6d0;background:#e9f2f0}
+.t-walk{color:#8f8672;border-color:#d6cfbd;background:#f3f0e7}
+
+.note{border-left:2px solid var(--rose);padding:4px 18px;font-size:13.5px;color:var(--ink-soft);margin-top:14px;max-width:600px}
+
+/* 美食行程:乾燥玫瑰色卡片標示 */
+.stop.meal{background:#f9f1ed;border:1px solid #ecdcd4;border-left:none;border-radius:0 10px 10px 0;padding:18px 22px 20px 34px;margin-bottom:34px}
+.stop.meal::before{top:27px;border-color:#b28477;background:#eacfc3}
+.stop.meal .time{color:#a96f5e}
+.stop.meal h3{color:#8c5a4b}
+.meal-chip{display:inline-block;font-size:11px;font-weight:400;letter-spacing:.18em;color:#a96f5e;border:1px solid #ddbcae;border-radius:999px;padding:1px 11px;margin-left:10px;vertical-align:1px;background:#fdf8f5}
+.stop.meal .note{border-left-color:#d8a996}
+
+/* 一日遊景點介紹小卡 */
+.spot-list{margin-top:14px;max-width:620px}
+.spot{border-top:1px solid var(--line);padding:13px 2px 13px 0}
+.spot:last-child{border-bottom:1px solid var(--line)}
+.spot .sp-name{font-family:'Noto Serif TC',serif;font-weight:600;font-size:15.5px;color:var(--accent-deep);letter-spacing:.05em}
+.spot .sp-name small{font-weight:400;font-size:11.5px;color:var(--ink-soft);letter-spacing:.15em;margin-left:8px}
+.spot p{font-size:14px;color:#6d685f;margin-top:3px}
+.spot .sp-hl{font-size:13px;color:#a96f5e;margin-top:6px;letter-spacing:.03em}
+.spot .sp-hl::before{content:"✦ ";color:#c2a49a}
+
+/* 每日行前提醒卡 */
+.day-tips{margin-top:10px;margin-left:41px;background:#faf6ea;border:1px solid #e9dfc4;border-radius:10px;padding:16px 22px;max-width:620px}
+.day-tips .dt-title{font-size:11.5px;letter-spacing:.3em;color:#9a7d3a;margin-bottom:8px}
+.day-tips p{font-size:13.5px;color:#786c4d;line-height:1.85}
+.day-tips p + p{margin-top:7px}
+.day-tips b{color:#9a7d3a;font-weight:500}
+@media(max-width:560px){.day-tips{margin-left:0}}
+
+/* 每日路線地圖 */
+.map-cap{font-size:11.5px;color:var(--ink-soft);letter-spacing:.25em;margin:26px 0 10px 41px}
+.day-map{height:340px;border:1px solid var(--line);border-radius:10px;margin:0 0 6px 41px;z-index:0;background:#eee}
+@media(max-width:560px){.map-cap,.day-map{margin-left:0}.day-map{height:280px}}
+.mk{width:26px;height:26px;border-radius:50%;background:var(--accent-deep);color:#fff;font-size:12.5px;font-weight:500;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.mk.rose{background:#b07a68}
+.leaflet-popup-content{font-family:'Noto Sans TC',sans-serif;font-size:13px}
+
+/* 站間乘車時間(小字) */
+.leg{position:relative;margin:-26px 0 32px 34px;font-size:11.5px;color:#a29a8c;letter-spacing:.08em}
+.leg::before{content:"▼";font-size:8px;margin-right:8px;color:#cfc9bc;vertical-align:2px}
+
+/* ── 預算 ── */
+.budget{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:56px 40px;margin:8px 0 80px}
+.budget h2{font-family:'Noto Serif TC',serif;font-weight:600;font-size:clamp(22px,4vw,26px);letter-spacing:.12em;text-align:center}
+.budget .rate{font-size:12.5px;color:var(--ink-soft);letter-spacing:.08em;text-align:center;margin:10px 0 44px}
+.budget h3{font-size:13px;font-weight:500;color:var(--accent-deep);margin:40px 0 14px;letter-spacing:.3em}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:11px 10px;text-align:left;border-bottom:1px solid var(--line);font-weight:300}
+th{font-size:11.5px;letter-spacing:.15em;color:var(--ink-soft);font-weight:400}
+td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.subtotal td{font-weight:500;color:var(--accent-deep);border-bottom:none;padding-top:14px}
+small{color:var(--ink-soft);font-weight:300}
+.b-note{margin-top:16px;font-size:13px;color:var(--ink-soft);border-left:2px solid var(--rose);padding-left:16px}
+.total-card{margin-top:52px;padding:34px 24px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center}
+.total-card .label{font-size:12px;letter-spacing:.3em;color:var(--ink-soft);margin-bottom:6px}
+.total-card .amt{font-family:'Noto Serif TC',serif;font-weight:600;font-size:clamp(30px,5vw,40px);letter-spacing:.05em}
+.total-card .per{font-size:13.5px;color:var(--ink-soft);line-height:2;text-align:right}
+.total-card .per b{color:var(--ink)}
+@media(max-width:560px){
+  .budget{padding:36px 18px}
+  th,td{padding:9px 5px;font-size:13px}
+  .hide-m{display:none}
+  .total-card .per{text-align:left}
+}
+
+/* ── 小叮嚀 ── */
+.tips{margin-bottom:80px}
+.tips h2{font-family:'Noto Serif TC',serif;font-weight:600;font-size:clamp(20px,4vw,24px);letter-spacing:.15em;margin-bottom:26px;text-align:center}
+.tip{border-top:1px solid var(--line);padding:20px 6px;font-size:14.5px;color:#6d685f}
+.tip:last-child{border-bottom:1px solid var(--line)}
+.tip b{color:var(--accent-deep);font-weight:500}
+
+footer{border-top:1px solid var(--line);color:var(--ink-soft);text-align:center;padding:34px 16px 44px;font-size:12px;letter-spacing:.3em}
+
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.route-stop .dot{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">2026.7.21 — 7.26・雙人自由行</div>
+    <h1>福岡,夏日漫遊<small>六天五夜 · 電車小旅行</small></h1>
+    <p class="sub">兼虎沾麵與黑毛和牛、關門海峽跨海縱走、高千穗神話仙境、太宰府祈福與熱血職棒、福岡塔與皿倉山雙夜景——一趟上山下海的北九州夏之旅。</p>
+    <div class="meta">
+      <span>福岡機場進出</span><span>住宿:ホテルフォルツァ博多駅筑紫口Ⅰ</span><span>全程刷 IC 卡・免套票</span>
+    </div>
+  </div>
+  <div class="hero-route">
+    <div class="route-line">
+      <div class="route-stop"><a href="#d1"><div class="dot"></div><div class="d">DAY 1</div><div class="n">博多・福岡塔夜景</div></a></div>
+      <div class="route-stop"><a href="#d2"><div class="dot"></div><div class="d">DAY 2</div><div class="n">天神・鷹隊觀戰</div></a></div>
+      <div class="route-stop"><a href="#d3"><div class="dot"></div><div class="d">DAY 3</div><div class="n">下關・皿倉山夜景</div></a></div>
+      <div class="route-stop"><a href="#d4"><div class="dot"></div><div class="d">DAY 4</div><div class="n">太宰府・明太子重</div></a></div>
+      <div class="route-stop"><a href="#d5"><div class="dot"></div><div class="d">DAY 5</div><div class="n">高千穗・和牛燒肉</div></a></div>
+      <div class="route-stop"><a href="#d6"><div class="dot"></div><div class="d">DAY 6</div><div class="n">返台</div></a></div>
+      <div class="route-stop"><a href="#run"><div class="dot"></div><div class="d">晨跑</div><div class="n">路線規劃</div></a></div>
+      <div class="route-stop"><a href="#budget"><div class="dot"></div><div class="d">預算</div><div class="n">雙人明細</div></a></div>
+      <div class="route-stop"><a href="#tips"><div class="dot"></div><div class="d">叮嚀</div><div class="n">通用提醒</div></a></div>
+    </div>
+  </div>
+</header>
+
+<nav aria-label="每日行程導覽">
+  <div class="wrap">
+    <a href="#d1">Day 1</a><a href="#d2">Day 2</a><a href="#d3">Day 3</a><a href="#d4">Day 4</a><a href="#d5">Day 5</a><a href="#d6">Day 6</a><a href="#run">晨跑</a><a href="#budget">預算</a><a href="#tips">叮嚀</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- DAY 1 -->
+<section class="day" id="d1">
+  <div class="day-head"><span class="day-badge">DAY 1</span><h2>抵達福岡</h2><span class="day-date">7/21(二)</span></div>
+  <p class="day-theme">兼虎沾麵熱烈開場 × 櫛田神社商店街 × 15:30 福岡城跡 × 大濠湖景晚餐 × 晚上二選一</p>
+  <div class="timeline">
+    <div class="stop">
+      <div class="time">10:30</div><h3>抵達福岡機場</h3>
+      <div class="tags"><span class="tag t-metro">地鐵機場線</span></div>
+      <p>搭地鐵機場線僅 5 分鐘(2 站)直達博多車站。</p>
+    </div>
+    <div class="leg">🚇 地鐵機場線 2 站約 5 分</div>
+    <div class="stop">
+      <div class="time">12:00</div><h3>飯店寄放行李・ホテルフォルツァ博多駅筑紫口Ⅰ</h3>
+      <p>住宿飯店就在博多站<b>築紫口</b>旁,出站即達,全程免搬行李轉車。</p>
+    </div>
+    <div class="leg">🚶 站內步行約 3 分</div>
+    <div class="stop meal">
+      <div class="time">12:15<span class="meal-chip">🍜 美食時光</span></div><h3>第一餐・麵屋兼虎(博多デイトス店)</h3>
+      <div class="tags"><span class="tag t-walk">博多車站 2F・博多めん街道</span></div>
+      <p>直接上博多車站 2 樓「博多めん街道(拉麵街道)」,用全福岡最濃郁、極致有嚼勁的辣魚介豚骨沾麵震撼開場,免去在戶外曬太陽的辛苦!</p>
+    </div>
+    <div class="leg">🚶 步行約 12 分(或地鐵七隈線 1 站)</div>
+    <div class="stop hl">
+      <div class="time">13:45 – 15:00</div><h3>櫛田神社 &amp; 上川端商店街</h3>
+      <div class="tags"><span class="tag t-walk">吃飽後輕鬆步行</span><span class="tag t-metro">或地鐵七隈線 → 櫛田神社前站</span></div>
+      <p>參訪博多當地的總鎮守「櫛田神社」,一睹夏日祭典「博多祇園山笠」的巨大裝飾花車,拍照效果非常震撼。隨後漫步到一旁有遮雨棚、古樸好逛的上川端商店街散步消食。</p>
+    </div>
+    <div class="leg">🚇 地鐵機場線約 10 分(含步行)</div>
+    <div class="stop">
+      <div class="time">15:30 – 17:15</div><h3>舞鶴公園(福岡城跡)→ 大濠公園散步 🏯</h3>
+      <div class="tags"><span class="tag t-metro">從商店街搭地鐵機場線 → 大濠公園站</span></div>
+      <p>精準於 15:30 進入福岡城跡,在 17:00 打烊前登上天守台、參觀城跡遺跡與歷史建築,拍下最壯麗的古城風景。結束後傍晚天氣轉涼,剛好順著走到大濠公園湖畔慢活漫步,享受愜意的午後。</p>
+    </div>
+    <div class="leg">🚶 園內散步至劃船碼頭旁 約 5 分</div>
+    <div class="stop meal">
+      <div class="time">17:30 – 18:30<span class="meal-chip">🍝 美食時光</span></div><h3>浪漫晚餐・Royal Garden Cafe 大濠公園 🌆</h3>
+      <p>散步到大濠公園劃船碼頭旁的餐廳。坐在落地窗前一邊欣賞波光粼粼的夢幻湖景與夕陽餘暉,一邊悠閒享用優質的義大利麵、漢堡排等日式洋食(蛋奶素友善),徹底放鬆體力。吃飽滿足後,當場決定晚上的超流暢雙方案!</p>
+    </div>
+    <div class="leg">🚌 公車約 15–20 分(方案一)</div>
+    <div class="stop hl">
+      <div class="time">18:45 起・方案一</div><h3>🌌 福岡塔海濱百萬夜景線(浪漫文青首選)</h3>
+      <div class="tags"><span class="tag t-bus">從大濠公園旁搭西鐵公車 約 15–20 分直達</span></div>
+      <p>19:15 左右登塔,正好捕獲黑夜降臨、城市點燈的璀璨海濱百萬夜景。隨後走到旁邊的百道海濱公園吹夏夜海風,在充滿歐式度假風情的岸邊散步,約 21:00 搭公車直達回博多飯店。</p>
+    </div>
+    <div class="leg">🚇 地鐵約 11 分(方案二)</div>
+    <div class="stop">
+      <div class="time">18:45 起・方案二</div><h3>🛒 留在博多車站大採購(體力節省線)</h3>
+      <div class="tags"><span class="tag t-metro">從大濠公園搭地鐵機場線直回博多車站</span></div>
+      <p>進攻 AMU PLAZA 與博多阪急百貨(百貨營業至 20:00),把握打烊前的黃金時間,把退稅與想買的日系服飾、美妝先掃一輪。</p>
+      <p>20:00 之後轉戰地下的博多一番街,買著名的「努努雞」當宵夜——走路 3 分鐘回飯店躺平,體力消耗最少。</p>
+    </div>
+  </div>
+  <div class="map-cap">🗺 DAY 1 路線地圖(標點為約略位置)</div>
+  <div class="day-map" id="map-d1"></div>
+</section>
+
+<!-- DAY 2 -->
+<section class="day" id="d2">
+  <div class="day-head"><span class="day-badge">DAY 2</span><h2>天神大採購與職棒之夜</h2><span class="day-date">7/22(三)</span></div>
+  <p class="day-theme">博多商圈輕鬆逛 × Shin Shin 拉麵 × 天神深度大採買 × 軟銀鷹熱血職棒之夜(歐力士戰)</p>
+  <div class="timeline">
+    <div class="stop">
+      <div class="time">10:00 – 12:00</div><h3>博多車站商圈輕鬆逛</h3>
+      <p>早上在飯店睡到自然醒,隨後在博多車站附近的百貨(阪急、AMU PLAZA)或地下街悠閒逛街。</p>
+    </div>
+    <div class="leg">🚇 地鐵 3 站約 6 分＋🚶 步行</div>
+    <div class="stop meal">
+      <div class="time">12:15<span class="meal-chip">🍜 美食時光</span></div><h3>美食插旗・博多拉麵 ShinShin(天神本店)</h3>
+      <div class="tags"><span class="tag t-metro">12:00 地鐵機場線 3 站 → 天神站</span></div>
+      <p>超人氣拉麵店,主打極其滑順、溫潤且毫無豬骨腥味的豚骨湯頭,搭配極細麵條與入口即化的叉燒,是老饕的最愛。建議一定要點份招牌的一口餃子一同享用,為下午的瘋狂大採買補足燃料!</p>
+    </div>
+    <div class="leg">🚶 步行約 3–5 分</div>
+    <div class="stop">
+      <div class="time">13:15 – 16:30</div><h3>天神商圈深度大採買(全室內防曬)🛒</h3>
+      <p>整個下午留給涼爽的天神地下街、福岡 PARCO 百貨,以及整棟極好逛的 Mina 天神(內有全九州最大的 LOFT 雜貨、UNIQLO 和 GU)。日本百貨晚上八點就打烊,下午絕對是逛街、補貨藥妝的最完美時段。</p>
+    </div>
+    <div class="leg">🚇 地鐵約 4 分＋🚶 步行約 15 分</div>
+    <div class="stop">
+      <div class="time">17:00 – 17:45</div><h3>朝聖官方巨大旗艦店(HAWKS STORE)</h3>
+      <div class="tags"><span class="tag t-metro">16:30 地鐵機場線 天神 → 唐人町站</span><span class="tag t-walk">順著熱血球迷人潮散步前往,傍晚海風舒服</span></div>
+      <p>巨蛋外面的官方旗艦店商品極齊全!趁開賽前人潮還沒擠爆,先進去挑選最帥氣的軟銀鷹應援球衣、應援毛巾和加油棒,換上裝備準備熱血應援!</p>
+    </div>
+    <div class="leg">🚶 就在巨蛋旁</div>
+    <div class="stop meal">
+      <div class="time">17:45 – 18:00<span class="meal-chip">🍱 美食時光</span></div><h3>開閘進場 → 搜刮「球員便當」與美食街</h3>
+      <p>刷讀門票進場!一進入巨蛋環狀大廊道,立刻去尋找喜歡的「球星限定應援便當」;蛋奶素的話,美食街也有非常多現炸薯條、起司章魚燒、日式烏龍麵或蕎麥麵可以選擇。</p>
+    </div>
+    <div class="stop hl">
+      <div class="time">18:00 – 21:30</div><h3>瑞穗 PayPay 福岡巨蛋・職棒大戰開打 ⚾ 軟銀鷹 vs 歐力士猛牛</h3>
+      <p style="font-size:12px;color:#8a857c;letter-spacing:.12em;margin:-4px 0 4px">MIZUHO PayPay Dome FUKUOKA(みずほPayPayドーム福岡)</p>
+      <p>坐在冷氣開放、視野極佳的巨大巨蛋內,一邊大口挖著便當,一邊向看台神采奕奕的「啤酒女孩」招手現倒一杯冰涼生啤酒。享受全場數萬人整齊劃一的歌聲、口號與揮舞加油棒的震撼應援!</p>
+      <p class="note">賽後跟著人群搭乘巨蛋外加開的直達巴士,或步行回唐人町站搭地鐵返回博多車站。</p>
+    </div>
+  </div>
+  <div class="map-cap">🗺 DAY 2 路線地圖(標點為約略位置)</div>
+  <div class="day-map" id="map-d2"></div>
+  <div class="day-tips">
+    <div class="dt-title">📌 DAY 2 行前提醒</div>
+    <p><b>棒球門票已購入</b>(雙人 NT$2,040)——出發前確認電子票券可正常顯示,並再次核對 7/22 的實際開賽時間。</p>
+  </div>
+</section>
+
+<!-- DAY 3 -->
+<section class="day" id="d3">
+  <div class="day-head"><span class="day-badge">DAY 3</span><h2>北九州跨海大縱走</h2><span class="day-date">7/23(四)</span></div>
+  <p class="day-theme">下關海峽散策 × 門司港 Princess Phi Phi × 皿倉山百萬夜景 × 壓軸博多天婦羅 Takao 🍤</p>
+  <div class="timeline">
+    <div class="stop">
+      <div class="time">08:30</div><h3>出發前往小倉與下關</h3>
+      <div class="tags"><span class="tag t-shinkansen">山陽新幹線 15 分 → 小倉站</span><span class="tag t-jr">JR 15 分 → 門司港站</span><span class="tag t-boat">關門聯絡船 約 5 分</span></div>
+      <p>從門司港棧橋搭乘「關門聯絡船」橫跨關門海峽,抵達對岸的山口縣下關市。</p>
+    </div>
+    <div class="leg">🚄 新幹線 15 分＋🚆 JR 15 分＋⛴ 船 5 分(含轉乘全程約 50–60 分)</div>
+    <div class="stop">
+      <div class="time">10:00</div><h3>下關漫步・唐戶市場、赤間神宮</h3>
+      <p>在海邊散步,造訪著名的唐戶市場、赤間神宮,欣賞壯麗的關門大橋海景。</p>
+    </div>
+    <div class="leg">⛴ 聯絡船約 5 分＋🚶 步行</div>
+    <div class="stop meal">
+      <div class="time">11:45<span class="meal-chip">🍛 美食時光</span></div><h3>午餐・門司港 Princess Phi Phi</h3>
+      <div class="tags"><span class="tag t-boat">聯絡船返回門司港</span></div>
+      <p>享用曾榮獲燒咖哩王座與各式大獎的 Princess Phi Phi!香料湯咖哩與燒咖哩層次極其豐富,是不容錯過的頂級美味。</p>
+    </div>
+    <div class="leg">🚶 步行約 5 分</div>
+    <div class="stop">
+      <div class="time">13:30</div><h3>門司港懷舊地區 &amp; 懷舊展望室</h3>
+      <p>漫步大正浪漫紅磚建築群。午後最熱時,搭電梯登上門司港懷舊展望室(31 樓),在冷氣房內 270 度鳥瞰整個關門海峽與懷舊港灣。下午三點半左右搭 JR 回小倉,到小倉城周邊散步,觀賞純白的天守閣與護城河綠意。</p>
+    </div>
+    <div class="leg">🚆 JR 小倉 → 八幡 約 15 分</div>
+    <div class="stop">
+      <div class="time">17:00</div><h3>前往皿倉山</h3>
+      <div class="tags"><span class="tag t-jr">JR → 八幡站</span><span class="tag t-bus">免費接駁車(或計程車 10 分)</span></div>
+      <p>於八幡站外轉乘免費接駁車前往纜車站;若時間搭不上,計程車也僅約 10 分鐘。</p>
+    </div>
+    <div class="leg">🚌 接駁車約 10 分＋🚡 纜車＋單軌約 10 分</div>
+    <div class="stop hl">
+      <div class="time">18:30</div><h3>皿倉山展望台・百萬夜景</h3>
+      <div class="tags"><span class="tag t-cable">登山纜車＋單軌電車</span></div>
+      <p>搭乘高空登山纜車與單軌電車雙重體驗登頂!在標高 622 公尺的山頂迎著夏夜微風,俯瞰整個北九州與洞海灣,隨著夜幕低垂,眼前漸漸浮現萬家燈火、極其遼闊震撼的「新日本三大夜景」。</p>
+      <p class="note">搭 JR 從八幡站一路舒適地睡回博多車站(特急約 45 分)。</p>
+    </div>
+    <div class="leg">🚆 JR 特急約 45 分回博多＋🚶 步行 3 分</div>
+    <div class="stop meal">
+      <div class="time">19:50 – 21:30<span class="meal-chip">🍤 美食時光</span></div><h3>完美宵夜盛宴・博多天婦羅 Takao(KITTE 博多店)✨</h3>
+      <div class="tags"><span class="tag t-walk">博多車站共構 KITTE 博多 10F・免吹風淋雨</span></div>
+      <p>回到博多車站出站不用吹風淋雨,直接走進隔壁共構的 KITTE 博多 10 樓。由天婦羅職人現場用純植物油現點現炸、分批送到面前——可以點招牌海鮮定食,也有專門的「野菜天婦羅定食」(含極其多汁的大黑菇、地瓜、蓮藕、茄子等,蛋奶素完全安心)。</p>
+      <p>大口吃著金黃酥脆的天婦羅,配上店內吃到飽的靈魂昆布明太子與淺漬蔬菜,徹底療癒一整天的疲勞!吃飽步行 3 分鐘回飯店。</p>
+    </div>
+  </div>
+  <div class="map-cap">🗺 DAY 3 路線地圖(標點為約略位置)</div>
+  <div class="day-map" id="map-d3"></div>
+  <div class="day-tips">
+    <div class="dt-title">📌 DAY 3 行前提醒</div>
+    <p><b>博多 ⇔ 小倉交通</b>——搭「山陽新幹線」只要 15 分鐘,但不適用 JR 九州 Pass(屬 JR 西日本管轄);想省預算或使用相關 Pass,可改搭 JR 特急音速號(Sonic),車程約 40 分鐘一樣舒適。升級新幹線雙人來回約多 ¥4,000。</p>
+    <p><b>皿倉山纜車</b>固定週二公休,行程排在週四不受影響。</p>
+  </div>
+</section>
+
+<!-- DAY 4 -->
+<section class="day" id="d4">
+  <div class="day-head"><span class="day-badge">DAY 4</span><h2>太宰府祈福與美食夜巡</h2><span class="day-date">7/24(五)</span></div>
+  <p class="day-theme">太宰府早晨祈福 × 天神補採購 × 元祖明太子重 × 一蘭總店點燈 × 晚間二選一</p>
+  <div class="timeline">
+    <div class="leg">🚇 地鐵約 6 分＋🚃 西鐵約 30 分(含轉乘全程約 45 分)</div>
+    <div class="stop">
+      <div class="time">08:30 – 11:30</div><h3>太宰府天滿宮・早晨散策</h3>
+      <div class="tags"><span class="tag t-metro">地鐵 → 天神站</span><span class="tag t-nishitetsu">西鐵電車 → 太宰府站</span></div>
+      <p>早一點抵達參道,能避開中午的旅行團與豔陽。悠閒朝聖建築大師隈研吾設計的木質特色星巴克、品嚐現烤香酥的「梅枝餅」,並在天滿宮內為學業與事業虔誠祈福;若太熱可至一旁宏偉的九州國立博物館吹冷氣避暑。</p>
+    </div>
+    <div class="leg">🚶 參道步行約 5 分</div>
+    <div class="stop meal">
+      <div class="time">11:30<span class="meal-chip">🍜 美食時光</span></div><h3>午餐・一蘭拉麵(太宰府參道店)</h3>
+      <div class="tags"><span class="tag t-walk">參道上即達</span></div>
+      <p>剛開門半小時就定位,精準避開大排隊!享用全日本唯一的五角形「合格碗」豚骨拉麵——從碗、筷子到超長的「合格麵」線條,處處充滿祈福儀式感。吃飽後搭西鐵電車輕鬆坐回天神。</p>
+    </div>
+    <div class="leg">🚃 西鐵電車約 30–35 分回天神</div>
+    <div class="stop">
+      <div class="time">13:15 – 16:45</div><h3>天神商圈・下午最後大採買 🛒</h3>
+      <div class="tags"><span class="tag t-nishitetsu">西鐵電車返回天神</span></div>
+      <p>把握下午百貨公司開門的時間回到天神,將前幾天沒買夠的服飾、生活雜貨及必補伴手禮一網打盡。</p>
+    </div>
+    <div class="leg">🚶 步行 5–8 分・過橋即達</div>
+    <div class="stop meal">
+      <div class="time">17:00<span class="meal-chip">🍱 美食時光</span></div><h3>極致美味・元祖博多めんたい重(西中洲)</h3>
+      <div class="tags"><span class="tag t-walk">從天神步行 5–8 分・過橋即達</span></div>
+      <p>逛完街直接輕鬆走路過橋抵達西中洲。17:00 準時排隊,精準切入傍晚人潮最少的真空黃金期,享用全福岡最著名的木盒高級明太子飯與濃郁沾麵。</p>
+    </div>
+    <div class="leg">🚶 步行約 5 分</div>
+    <div class="stop">
+      <div class="time">18:30 – 20:00</div><h3>中洲川端夜散策 &amp; 驚安殿堂唐吉訶德</h3>
+      <p>吃飽後在熱鬧的那珂川畔散步消食,並前往 24 小時營業的「唐吉訶德 中洲店」展開零食大補貨。</p>
+    </div>
+    <div class="leg">🚶 步行約 1 分</div>
+    <div class="stop hl">
+      <div class="time">20:00</div><h3>一蘭拉麵總本店・八點璀璨燈光秀 ✨</h3>
+      <div class="tags"><span class="tag t-walk">從唐吉訶德步行 1 分</span></div>
+      <p>20:00 準時站在一蘭總本店大樓前,欣賞巨型紅色燈籠牆隨著日本傳統祭典音樂同時亮起的特色燈光音效秀,拍照打卡極具動感!</p>
+    </div>
+    <div class="leg">🚶 周邊步行即達(方案一)</div>
+    <div class="stop">
+      <div class="time">20:15 起・方案一</div><h3>🛒 留在天神/中洲逛街(藥妝與夜生活夜貓行程)</h3>
+      <p>百貨雖已打烊,但天神與中洲一帶的大型松本清、大國藥妝、天神地下街部分藥妝店與各式驚安殿堂依舊燈火通明,可以悠閒補齊所有藥妝零食;累了還能走到那珂川畔朝聖著名的博多屋台(路邊攤)吃個宵夜,最後搭地鐵回博多。</p>
+    </div>
+    <div class="leg">🚇 地鐵約 3 分＋🚆 JR 1 站＋🚶 步行 9 分(全程約 20 分・方案二)</div>
+    <div class="stop">
+      <div class="time">20:15 起・方案二</div><h3>🤖 前往 LaLaport 福岡(夜間 1:1 巨大鋼彈秀)</h3>
+      <div class="tags"><span class="tag t-metro">地鐵回博多車站</span><span class="tag t-jr">JR 1 站 → 竹下站</span></div>
+      <p>先回博多車站放下戰利品,再搭 JR 前往。夜晚涼爽,商場外的 1:1 實體巨大鋼彈在燈光投射與音樂演出下,比白天更有氣勢、更具科技震撼感!(商場部分店家營業至 21:00 或 22:00)</p>
+    </div>
+  </div>
+  <div class="map-cap">🗺 DAY 4 路線地圖(標點為約略位置)</div>
+  <div class="day-map" id="map-d4"></div>
+  <div class="day-tips">
+    <div class="dt-title">📌 DAY 4 行前提醒</div>
+    <p><b>全程免觀光套票</b>——本日西鐵電車與地鐵直接刷交通 IC 卡(如西瓜卡)即可;前往太宰府於「西鐵二日市站」轉乘太宰府線。</p>
+    <p><b>一蘭參道店</b>建議 11:30 剛開門就入座,是全天最不用排隊的時段。</p>
+  </div>
+</section>
+
+<!-- DAY 5 -->
+<section class="day" id="d5">
+  <div class="day-head"><span class="day-badge">DAY 5</span><h2>高千穗仙境一日遊</h2><span class="day-date">7/25(六)</span></div>
+  <p class="day-theme">九州神話與仙境巡禮 × 壓軸黑毛和牛燒肉「肉一」</p>
+  <div class="timeline">
+    <div class="stop hl">
+      <div class="time">08:15</div><h3>高千穗峽一日遊出發(福岡出發・全程約 10 小時)</h3>
+      <div class="tags"><span class="tag t-bus">專車一日遊</span><span class="tag t-walk">集合:羅森 LAWSON・福岡東方飯店(博多站築紫口前)</span></div>
+      <p>於博多站<b>築紫口</b>前的「羅森 福岡東方飯店店」門口集合出發(建議提早 10 分鐘抵達),展開九州神話仙境巡禮,一路深入熊本、宮崎交界的山林祕境:</p>
+      <div class="spot-list">
+        <div class="spot">
+          <div class="sp-name">上色見熊野座神社<small>11:10 抵達|停留約 30–40 分・自由活動</small></div>
+          <p>隱身於阿蘇外輪山南麓杉林深處、被譽為「日本最有異世界感」的神社,供奉伊邪那岐、伊邪那美二神。踏上兩百餘級被厚厚青苔覆蓋的石階,近百座石燈籠沿著幽暗參道一路排開,霧氣與林隙光交錯,正是動畫《螢火之森》場景的靈感原點。</p>
+          <p>參道盡頭再往上爬約 10 分鐘,可抵達巨岩中央貫穿一個縱橫約 10 公尺大洞的「穿戶岩」——傳說連如此巨岩都能貫穿,象徵任何目標皆可達成,是著名的突破難關、合格必勝能量景點。</p>
+          <p class="sp-hl">石階濕滑青苔多,請穿好走的鞋;陰天或雨後霧氣繚繞時氛圍最夢幻。(團方行程中的「月廻公園百本櫻」為櫻花季 3 月下旬–4 月上旬限定,七月出發不停留)</p>
+        </div>
+        <div class="spot">
+          <div class="sp-name">宮崎・高千穗峽谷<small>12:40 抵達|停留約 1.5 小時・自由午餐</small></div>
+          <p>約十萬年前阿蘇火山噴發的熔岩流,被五瀨川長年切割出這道深達 80–100 公尺的柱狀節理峽谷:V 字形斷崖如刀削斧劈,溪水碧綠如翡翠,名列「日本瀑布百選」的真名井瀑布自崖頂約 17 公尺處輕瀉而下,是九州最具代表性的絕景。峽谷內可步行遊覽,<b>行程內含峽谷接駁車</b>,免去徒步之苦。</p>
+          <p><b>本方案已包含遊船體驗</b>——自行操作小艇(最多 3 人,需拼船)約 30 分鐘,從水面仰望瀑布水霧灑落、伸手可及,是整趟旅程最夢幻的畫面。若天氣或水位不適宜,將提供替代安排或部分退款。</p>
+          <p class="sp-hl">午餐自理,岸邊有名物「流水素麵」可以體驗。</p>
+        </div>
+        <div class="spot">
+          <div class="sp-name">天岩戶神社<small>14:30 抵達|停留約 1 小時(含天安河原)</small></div>
+          <p>日本創世神話的核心場景——傳說太陽神天照大神因弟弟素戔嗚尊胡鬧而躲進「天岩戶」洞窟,世界因此陷入黑暗。神社分東、西本宮,西本宮以對岸山壁間的神聖洞窟為御神體。</p>
+          <p>可參加由神職人員帶領的免費導覽(約每 30 分鐘一梯),穿過一般遊客止步的拜殿後方,隔著岩戶川遙拜那座至今無人能踏入的洞窟,親臨「日本的光明重新誕生」的神話原點。</p>
+          <p class="sp-hl">境內有天鈿女命起舞的雕像與御神木「招霧杉」,別忘了求一枚開運御守。※本團特別贈送和式點心(如遇店家售罄無法贈送,不予退款)。</p>
+        </div>
+        <div class="spot">
+          <div class="sp-name">天安河原<small>與天岩戶神社同時段・步行約 10 分</small></div>
+          <p>從天岩戶神社西本宮沿著岩戶川溪谷步行約 10 分鐘,穿過太鼓橋與蒼鬱溪林即達。傳說天照大神隱身後,八百萬神祇齊聚在這座寬約 40 公尺、深約 30 公尺的河畔大洞窟「仰慕窟」商議對策,最終以歌舞誘出天照大神,讓世界重見光明。</p>
+          <p>如今洞窟內外堆滿祈願者疊起的無數小石塔,層層疊疊向幽暗深處延伸,靜謐中帶著難以言喻的震撼——據說一邊許願一邊疊起石塔而不倒,願望就會實現。</p>
+          <p class="sp-hl">溪谷步道濕氣重、光線幽暗,是全程最有「神域感」的一段路,拍照記得調高感光度。</p>
+        </div>
+      </div>
+      <p style="margin-top:14px">15:30 愉快結束當天遊玩、開始返程(回程時間僅供參考,若行程順利、路況良好可能提早);18:30 抵達羅森 福岡東方飯店(博多站築紫口前),在此下車解散。</p>
+    </div>
+    <div class="leg">🚶 從博多站築紫口步行約 3 分</div>
+    <div class="stop meal">
+      <div class="time">19:00<span class="meal-chip">🥩 美食時光</span></div><h3>盛宴大餐・肉屋 肉一(博多店)</h3>
+      <div class="tags"><span class="tag t-walk">博多車站築紫口附近,步行即達</span></div>
+      <p>一日遊拉車回來後,直接走路前往「肉一」——全福岡最熱門的黑毛和牛燒肉店,主打極高 CP 值的頂級和牛。特選牛舌、稀有部位綜合拼盤,入口即化的油脂與濃郁肉香,搭配一杯冰涼的飲料,為最後一個夜晚畫下最完美的句點!</p>
+      <p class="note">超級大熱門排隊店,強烈建議提早 1–2 個月透過線上平台(如 Hot Pepper 或官網)訂位。</p>
+    </div>
+  </div>
+  <div class="map-cap">🗺 DAY 5 路線地圖(標點為約略位置)</div>
+  <div class="day-map" id="map-d5"></div>
+  <div class="day-tips">
+    <div class="dt-title">📌 DAY 5 行前提醒</div>
+    <p><b>高千穗一日遊(全程約 10 小時)</b>——08:15 於博多站<b>築紫口</b>前的「羅森 福岡東方飯店店」集合出發(就在住宿的 Hotel Forza 附近,步行即達),建議提早 10 分鐘抵達;本方案<b>已含高千穗峽遊船體驗</b>(需拼船,天候/水位不宜時提供替代安排或部分退款)與峽谷接駁車,並贈送和式點心。回程約 18:30 於同地點下車解散。</p>
+    <p><b>肉屋 肉一 訂位</b>——博多店是超級大熱門排隊店,強烈建議提早 1–2 個月透過線上預約平台(如 Hot Pepper 或官網連結)訂好 19:00 的位子,現場排隊通常要等非常久。</p>
+  </div>
+</section>
+
+<!-- DAY 6 -->
+<section class="day" id="d6">
+  <div class="day-head"><span class="day-badge">DAY 6</span><h2>輕鬆返台</h2><span class="day-date">7/26(日)</span></div>
+  <div class="timeline">
+    <div class="stop">
+      <div class="time">08:00</div><h3>退房・前往機場</h3>
+      <div class="tags"><span class="tag t-metro">地鐵 5 分 → 福岡機場國際線</span></div>
+      <p>從博多車站直奔機場。</p>
+    </div>
+    <div class="leg">🚇 地鐵機場線約 5 分</div>
+    <div class="stop">
+      <div class="time">10:30</div><h3>準時登機</h3>
+      <p>結束充實精采的 6 天自由行。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 晨跑路線 -->
+<section class="day" id="run">
+  <div class="day-head"><span class="day-badge">BONUS</span><h2>博多出發・每日不重複晨跑路線 🏃</h2></div>
+  <p class="day-theme">五晚都住博多站旁,清晨這樣跑,天天換風景</p>
+  <div class="timeline">
+    <div class="stop">
+      <div class="time">約 9 KM</div><h3>大濠公園湖景圈</h3>
+      <p>往西約 2.5km 到大濠公園,外圈 2km 環湖道＋舞鶴公園城跡,來回約 9km。平路多、有跑者專用道,是最舒服的一條。</p>
+    </div>
+    <div class="stop">
+      <div class="time">約 15 KM</div><h3>百道濱海公園線</h3>
+      <p>從博多站往西跑到福岡塔＋百道海濱公園,單趟約 7.5km、來回約 15km。清晨看海配沙灘非常推,但距離較長,建議排在體力最好的那天。</p>
+    </div>
+    <div class="stop">
+      <div class="time">約 6 KM</div><h3>筥崎宮線</h3>
+      <p>往東北約 3km 到筥崎宮,參道筆直林蔭,來回約 6km,短距離恢復跑剛剛好。</p>
+    </div>
+    <div class="stop">
+      <div class="time">約 7 KM</div><h3>博多運河 ＋ 中洲川端線</h3>
+      <p>剩下兩天可以輪著跑:沿博多運河與中洲川端約 7km 看河景,或重複最舒服的大濠公園湖景圈。</p>
+      <p class="note">博多站周邊紅綠燈多,建議 6 點前出門避開車流,七月清晨也較涼爽。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 預算 -->
+<section class="budget" id="budget">
+  <h2>雙人總預算明細</h2>
+  <p class="rate">匯率以 ¥5 ≒ NT$1(1 日圓 ≒ 0.2 台幣)估算・不含個人購物與高單價伴手禮</p>
+
+  <h3>① 固定大項目</h3>
+  <table>
+    <tr><td>來回機票(雙人)<small> ・已確定</small></td><td class="num">NT$ 32,000</td></tr>
+    <tr><td>五晚飯店(雙人)・ホテルフォルツァ博多駅筑紫口Ⅰ<small> ・已確定</small></td><td class="num">NT$ 20,000</td></tr>
+    <tr class="subtotal"><td>小計</td><td class="num">NT$ 52,000</td></tr>
+  </table>
+
+  <h3>② 大眾運輸與門票(雙人)</h3>
+  <table>
+    <tr><th>項目</th><th class="num hide-m">日圓</th><th class="num">台幣</th><th class="hide-m">說明</th></tr>
+    <tr><td>Day 1–6 市區地鐵與接駁</td><td class="num hide-m">¥4,000</td><td class="num">$800</td><td class="hide-m">機場來回、市區景點移動</td></tr>
+    <tr><td>Day 2 軟銀鷹職棒門票<small> ・已確定</small></td><td class="num hide-m">≈¥10,200</td><td class="num">$2,040</td><td class="hide-m">雙人實際票價(台幣計價)</td></tr>
+    <tr><td>Day 3 博多 ⇔ 小倉來回交通</td><td class="num hide-m">¥13,000</td><td class="num">$2,600</td><td class="hide-m">JR 特急音速號自由席往返估算</td></tr>
+    <tr><td>Day 3 門司港/下關/皿倉山區間</td><td class="num hide-m">¥9,600</td><td class="num">$1,920</td><td class="hide-m">含區間 JR、關門聯絡船來回、纜車來回票</td></tr>
+    <tr><td>Day 4 天神 ⇔ 太宰府西鐵電車來回</td><td class="num hide-m">¥1,700</td><td class="num">$340</td><td class="hide-m">約 ¥420/人單程,刷 IC 卡即可</td></tr>
+    <tr><td>Day 5 高千穗專車一日遊<small> ・已確定</small></td><td class="num hide-m">≈¥23,100</td><td class="num">$4,624</td><td class="hide-m">$2,312/人,含遊船、峽谷接駁車與和式點心</td></tr>
+    <tr class="subtotal"><td>小計</td><td class="num hide-m">≈¥61,600</td><td class="num">NT$ 12,324</td><td class="hide-m"></td></tr>
+  </table>
+  <p class="b-note">Day 1 福岡塔展望門票(約 ¥800/人 ≈ NT$160/人,選擇方案一才需要)依現場票價而定,尚未計入上表。另,若 Day 3 想升級新幹線(單程僅 15 分鐘),雙人來回約多 ¥4,000(≈ NT$800),可視當天體力現場決定。</p>
+
+  <h3>③ 餐飲與日常雜支(雙人)</h3>
+  <table>
+    <tr><td>每日餐費 ¥10,000 × 5 天<br><small>含兼虎沾麵、Shin Shin 拉麵、一蘭合格碗拉麵、門司港燒咖哩、天婦羅 Takao、肉一黑毛和牛燒肉、明太子重與便利商店</small></td><td class="num">NT$ 10,000</td></tr>
+    <tr><td>旅遊平安險＋海外漫遊網卡</td><td class="num">NT$ 1,500</td></tr>
+    <tr class="subtotal"><td>小計</td><td class="num">NT$ 11,500</td></tr>
+  </table>
+
+  <div class="total-card">
+    <div>
+      <div class="label">預估總基本開銷(雙人)</div>
+      <div class="amt">NT$ 75,824</div>
+    </div>
+    <div class="per">平均一人約 <b>NT$ 37,912</b><br>機票住宿 $52,000 ＋ 交通門票 $12,324 ＋ 餐飲雜支 $11,500</div>
+  </div>
+</section>
+
+<!-- 小叮嚀 -->
+<section class="tips" id="tips">
+  <h2>通用小叮嚀</h2>
+  <div class="tip"><b>市區交通</b> — 全程不需觀光套票:地鐵、西鐵電車與 JR 直接刷一般交通 IC 卡(如西瓜卡)即可,福岡地鐵亦支援台灣信用卡感應進站,新幹線車票單程另購。</div>
+  <div class="tip"><b>夏日防曬</b> — 七月福岡炎熱,行程已刻意將午後最熱時段安排在室內(商場、展望室、百貨地下街);下關海邊、太宰府參道與高千穗戶外行程請備妥遮陽帽與防曬。</div>
+  <div class="tip"><b>各日預約提醒</b> — 與特定日期相關的門票、訂位與集合資訊,已直接標示在各日行程底部的「📌 行前提醒」卡片中,出發前逐日確認即可。</div>
+</section>
+
+</main>
+
+<footer>福岡 六天五夜・2026.7.21 – 7.26・旅途愉快</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+(function(){
+  var nav=document.querySelector('nav'),hero=document.querySelector('.hero');
+  if(!nav||!hero)return;
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(entries){
+      nav.classList.toggle('show',!entries[0].isIntersecting);
+    },{threshold:0}).observe(hero);
+  }else{
+    window.addEventListener('scroll',function(){
+      nav.classList.toggle('show',window.scrollY>hero.offsetHeight);
+    });
+  }
+})();
+
+/* ── 每日路線地圖(座標為約略位置)── */
+(function(){
+  if(typeof L==='undefined')return;
+  // t:'m' = 美食(玫瑰色標記)
+  var days={
+    'map-d1':[
+      {n:'福岡機場',c:[33.5859,130.4510]},
+      {n:'博多車站・飯店寄放行李',c:[33.5902,130.4207]},
+      {n:'麵屋兼虎(博多DEITOS 2F)',c:[33.5899,130.4215],t:'m'},
+      {n:'櫛田神社',c:[33.5936,130.4104]},
+      {n:'上川端商店街',c:[33.5947,130.4113]},
+      {n:'舞鶴公園・福岡城跡天守台',c:[33.5849,130.3829]},
+      {n:'大濠公園湖畔散步',c:[33.5872,130.3745]},
+      {n:'Royal Garden Cafe 大濠公園(晚餐)',c:[33.5878,130.3733],t:'m'},
+      {n:'福岡塔(方案一)',c:[33.5934,130.3516]},
+      {n:'百道海濱公園(方案一)',c:[33.5951,130.3541]}
+    ],
+    'map-d2':[
+      {n:'博多車站商圈',c:[33.5902,130.4207]},
+      {n:'博多拉麵 ShinShin 天神本店',c:[33.5934,130.3982],t:'m'},
+      {n:'天神地下街/Mina 天神/PARCO',c:[33.5947,130.4001]},
+      {n:'唐人町站',c:[33.5924,130.3705]},
+      {n:'HAWKS STORE 官方旗艦店',c:[33.5947,130.3633]},
+      {n:'瑞穗 PayPay 福岡巨蛋(MIZUHO PayPay Dome FUKUOKA)',c:[33.5953,130.3620]}
+    ],
+    'map-d3':[
+      {n:'博多車站(新幹線出發)',c:[33.5902,130.4207]},
+      {n:'小倉站',c:[33.8869,130.8824]},
+      {n:'門司港站・關門聯絡船',c:[33.9459,130.9617]},
+      {n:'唐戶市場(下關)',c:[33.9564,130.9410]},
+      {n:'赤間神宮(下關)',c:[33.9600,130.9484]},
+      {n:'Princess Phi Phi',c:[33.9448,130.9628],t:'m'},
+      {n:'門司港懷舊展望室(31F)',c:[33.9472,130.9640]},
+      {n:'小倉城',c:[33.8846,130.8748]},
+      {n:'八幡站(轉接駁車)',c:[33.8630,130.8110]},
+      {n:'皿倉山展望台',c:[33.8455,130.7935]},
+      {n:'博多天婦羅 Takao(KITTE 博多 10F)',c:[33.5891,130.4202],t:'m'}
+    ],
+    'map-d4':[
+      {n:'博多車站出發',c:[33.5902,130.4207]},
+      {n:'太宰府天滿宮',c:[33.5211,130.5349]},
+      {n:'一蘭拉麵 太宰府參道店',c:[33.5190,130.5320],t:'m'},
+      {n:'天神商圈大採買',c:[33.5910,130.3990]},
+      {n:'元祖博多めんたい重(西中洲)',c:[33.5903,130.4030],t:'m'},
+      {n:'唐吉訶德 中洲店',c:[33.5936,130.4044]},
+      {n:'一蘭拉麵總本店・燈光秀',c:[33.5943,130.4029]},
+      {n:'LaLaport 福岡(方案二)',c:[33.5645,130.4335]}
+    ],
+    'map-d5':[
+      {n:'博多站築紫口・羅森前集合',c:[33.5896,130.4230]},
+      {n:'上色見熊野座神社',c:[32.8538,131.1585]},
+      {n:'高千穗峽・真名井瀑布(含遊船)',c:[32.7013,131.3007]},
+      {n:'天岩戶神社',c:[32.7427,131.3470]},
+      {n:'天安河原',c:[32.7455,131.3445]},
+      {n:'肉屋 肉一(博多店)',c:[33.5893,130.4235],t:'m'}
+    ]
+  };
+  Object.keys(days).forEach(function(id){
+    var el=document.getElementById(id);
+    if(!el)return;
+    var stops=days[id];
+    var map=L.map(id,{scrollWheelZoom:false});
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+      attribution:'&copy; OpenStreetMap contributors',maxZoom:18
+    }).addTo(map);
+    var latlngs=[];
+    stops.forEach(function(s,i){
+      latlngs.push(s.c);
+      L.marker(s.c,{icon:L.divIcon({
+        className:'',html:'<div class="mk'+(s.t==='m'?' rose':'')+'">'+(i+1)+'</div>',
+        iconSize:[26,26],iconAnchor:[13,13]
+      })}).addTo(map).bindPopup((i+1)+'. '+s.n);
+    });
+    L.polyline(latlngs,{color:'#6d7d67',weight:2.5,dashArray:'6 6',opacity:.8}).addTo(map);
+    map.fitBounds(L.latLngBounds(latlngs),{padding:[34,34]});
+  });
+})();
+</script>
+
+</body>
+</html>
